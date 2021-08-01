@@ -20,8 +20,12 @@ const REVIEWS = gql`
 `;
 
 export default function Home() {
+  console.log(process.env.NEXT_PUBLIC_STRAPI_API_URL);
   // Getting data from rest api
-  const { loading, error, data } = useFetch('http://localhost:1337/reviews');
+  // const { loading, error, data } = useFetch('http://localhost:1337/reviews');
+  const { loading, error, data } = useFetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/reviews`
+  );
 
   // //Getting data from graphql
   // const { loading, error, data } = useQuery(REVIEWS);

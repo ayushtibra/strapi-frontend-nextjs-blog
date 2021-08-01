@@ -15,7 +15,10 @@ const CATEGORIES = gql`
 
 export default function SiteHeader() {
   // Getting data from rest api
-  const { loading, error, data } = useFetch(`http://localhost:1337/categories`);
+  //   const { loading, error, data } = useFetch(`http://localhost:1337/categories`);
+  const { loading, error, data } = useFetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/categories`
+  );
 
   //Getting data from graphql
   // const { loading, error, data } = useQuery(CATEGORIES);

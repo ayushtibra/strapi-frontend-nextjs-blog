@@ -26,8 +26,11 @@ export default function ReviewDetails() {
   console.log(id);
   //   const id = 2;
   //Getting data from rest api
+  //   const { loading, error, data } = useFetch(
+  //     `http://localhost:1337/reviews/${id}`
+  //   );
   const { loading, error, data } = useFetch(
-    `http://localhost:1337/reviews/${id}`
+    `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/reviews/${id}`
   );
 
   //Getting data from graphql
@@ -57,7 +60,7 @@ export default function ReviewDetails() {
         <div className='rating'>{data?.rating} </div>
         <h2>{data?.title}</h2>
 
-        {data?.categories.map((c) => (
+        {data?.categories?.map((c) => (
           <small key={c.id}>{c.name}</small>
         ))}
 

@@ -31,8 +31,12 @@ export default function Category() {
   console.log(id);
 
   // Getting data from rest api
+  // const { loading, error, data } = useFetch(
+  //   `http://localhost:1337/categories/${id}`
+  // );
+
   const { loading, error, data } = useFetch(
-    `http://localhost:1337/categories/${id}`
+    `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/categories/${id}`
   );
 
   //Getting data from graphql
@@ -68,16 +72,16 @@ export default function Category() {
       <h2>{data?.name}</h2>
       {data?.reviews?.map((review) => (
         <div key={review.id} className='review-card'>
-          <div className='rating'>{review.rating} </div>
-          <h2>{review.title}</h2>
+          <div className='rating'>{review?.rating} </div>
+          <h2>{review?.title}</h2>
 
           {data?.review?.map((c) => (
             <small key={c.id}>{c.name}</small>
           ))}
 
-          <p>{review.body.substring(0, 200)}...</p>
+          <p>{review?.body.substring(0, 200)}...</p>
 
-          <Link href={`/reviews/${review.id}`}>Read more</Link>
+          <Link href={`/reviews/${review?.id}`}>Read more</Link>
         </div>
       ))}
     </div>
