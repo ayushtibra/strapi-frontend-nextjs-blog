@@ -5,6 +5,7 @@ import { useQuery, gql } from '@apollo/client';
 import useFetch from '../../hooks/useFetch';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Loader from 'react-loader-spinner';
 
 const CATEGORY = gql`
   query GetCategory($id: ID!) {
@@ -28,7 +29,6 @@ const CATEGORY = gql`
 export default function Category() {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
 
   // Getting data from rest api
   // const { loading, error, data } = useFetch(
@@ -44,10 +44,19 @@ export default function Category() {
   //   variables: { id: id },
   // });
 
-  if (loading) return <p>loading</p>;
+  if (loading)
+    return (
+      <div className='spinner-poistion'>
+        <Loader
+          type='Oval'
+          color='#8e2ad6'
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+        />
+      </div>
+    );
   if (error) return <p>Error :(</p>;
-
-  console.log(data);
 
   return (
     // For graphql
@@ -68,22 +77,25 @@ export default function Category() {
     //     </div>
     //   ))}
     // </div>
-    <div>
-      <h2>{data?.name}</h2>
-      {data?.reviews?.map((review) => (
-        <div key={review.id} className='review-card'>
-          <div className='rating'>{review?.rating} </div>
-          <h2>{review?.title}</h2>
+    <>
+      <h2 className='category-heading'>{data?.name}</h2>
+      <div className='row'>
+        {data?.reviews?.map((review) => (
+          <div key={review.id} className='review-card'>
+            {/* Show with stars - do it later */}
+            {/* <div className='rating'>{review?.rating} </div> */}
+            <h2>{review?.title}</h2>
 
-          {data?.review?.map((c) => (
-            <small key={c.id}>{c.name}</small>
-          ))}
+            {data?.review?.map((c) => (
+              <small key={c.id}>{c.name}</small>
+            ))}
 
-          <p>{review?.body.substring(0, 200)}...</p>
+            <p>{review?.body.substring(0, 200)}...</p>
 
-          <Link href={`/reviews/${review?.id}`}>Read more</Link>
-        </div>
-      ))}
-    </div>
+            <Link href={`/reviews/${review?.id}`}>Read more</Link>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

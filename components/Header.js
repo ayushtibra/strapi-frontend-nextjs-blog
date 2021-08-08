@@ -3,6 +3,9 @@ import Link from 'next/link';
 // import { Link } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import useFetch from '../hooks/useFetch';
+import Loader from 'react-loader-spinner';
+import Image from 'next/image';
+import { useRouter } from 'next/dist/client/router';
 
 const CATEGORIES = gql`
   query GetCategories {
@@ -14,6 +17,8 @@ const CATEGORIES = gql`
 `;
 
 export default function SiteHeader() {
+  const router = useRouter();
+  console.log(router);
   // Getting data from rest api
   //   const { loading, error, data } = useFetch(`http://localhost:1337/categories`);
   const { loading, error, data } = useFetch(
@@ -23,14 +28,28 @@ export default function SiteHeader() {
   //Getting data from graphql
   // const { loading, error, data } = useQuery(CATEGORIES);
 
-  if (loading) return <p>loading</p>;
+  if (loading)
+    return (
+      <div className='spinner-poistion'>
+        <Loader
+          type='Oval'
+          color='#8e2ad6'
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+        />
+      </div>
+    );
   if (error) return <p>Error :(</p>;
 
-  console.log(data);
   return (
     <div className='site-header'>
       <Link href='/'>
-        <h1>Ninja Reviews</h1>
+        <a className='logo'>
+          {' '}
+          <Image src='/trending.png' width={45} height={45} />
+          <span>TRENDSHOTS</span>
+        </a>
       </Link>
       {/* for graphql */}
       {/* <nav className='categories'>
@@ -41,14 +60,16 @@ export default function SiteHeader() {
           </Link>
         ))}
       </nav> */}
-      <nav className='categories'>
-        <span>Filter review by categories</span>
+      <div className='categories'>
+        {/* <span>Filter review by categories</span> */}
         {data?.map((category) => (
           <Link key={category.id} href={`/category/${category.id}`}>
-            {category.name}
+            <a className={`active ${router.query.id == category.id}`}>
+              {category.name}
+            </a>
           </Link>
         ))}
-      </nav>
+      </div>
     </div>
   );
 }

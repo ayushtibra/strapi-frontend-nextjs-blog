@@ -4,6 +4,7 @@ import { useQuery, gql } from '@apollo/client';
 import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/router';
 import useFetch from '../../hooks/useFetch';
+import Loader from 'react-loader-spinner';
 
 const REVIEW = gql`
   query GetReview($id: ID!) {
@@ -23,7 +24,7 @@ const REVIEW = gql`
 export default function ReviewDetails() {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
+
   //   const id = 2;
   //Getting data from rest api
   //   const { loading, error, data } = useFetch(
@@ -38,10 +39,19 @@ export default function ReviewDetails() {
   //   variables: { id: id },
   // });
 
-  if (loading) return <p>loading</p>;
+  if (loading)
+    return (
+      <div className='spinner-poistion'>
+        <Loader
+          type='Oval'
+          color='#8e2ad6'
+          height={100}
+          width={100}
+          timeout={3000} //3 secs
+        />
+      </div>
+    );
   if (error) return <p>Error :(</p>;
-
-  console.log(data);
 
   return (
     <>
@@ -56,6 +66,8 @@ export default function ReviewDetails() {
 
         <ReactMarkdown>{data?.review?.body}</ReactMarkdown>
       </div> */}
+      <br />
+      <br />
       <div className='review-card'>
         <div className='rating'>{data?.rating} </div>
         <h2>{data?.title}</h2>
