@@ -1,7 +1,7 @@
 // components/Layout.js
 import React, { Component } from 'react';
 import Header from './Header';
-
+import Footer from './Footer';
 class Layout extends Component {
   render() {
     const { children } = this.props;
@@ -9,6 +9,7 @@ class Layout extends Component {
       <div className='layout'>
         <Header />
         {children}
+        <Footer />
       </div>
     );
   }

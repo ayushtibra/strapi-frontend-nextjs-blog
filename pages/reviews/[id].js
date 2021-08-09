@@ -68,7 +68,7 @@ export default function ReviewDetails() {
       </div> */}
       <br />
       <br />
-      <div className='review-card'>
+      <div className='review-card outer'>
         <div className='rating'>{data?.rating} </div>
         <h2>{data?.title}</h2>
 
