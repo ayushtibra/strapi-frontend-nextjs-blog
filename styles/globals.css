@@ -91,7 +91,8 @@ a {
 }
 
 .category-heading {
-  margin-bottom: 3rem;
+  margin-top: 4rem;
+  margin-bottom: 4em;
 }
 
 .header-content {
@@ -219,7 +220,7 @@ a {
 }
 
 .site-footer {
-  margin-top: 25px;
+  /* margin-top: 25px; */
   padding: 40px 20px 10px;
   color: #444;
   font-size: 1.3rem;
@@ -357,6 +358,27 @@ a {
   line-height: 1.5;
 }
 
+.image-container {
+  position: relative;
+  text-align: center;
+  opacity: 0.8;
+  /* color: white; */
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 800;
+  font-style: italic;
+}
+
 @media screen and (max-width: 768px) {
   .site-foot-nav {
     display: flex;
@@ -365,5 +387,9 @@ a {
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .centered {
+    font-size: 5px;
   }
 }

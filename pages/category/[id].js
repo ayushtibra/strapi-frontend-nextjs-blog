@@ -78,8 +78,8 @@ export default function Category() {
     //   ))}
     // </div>
     <>
-      <h2 className='category-heading'>{data?.name}</h2>
-      <div className='row'>
+      {/* <h2 className='category-heading'>{data?.name}</h2> */}
+      <div className='row category-heading'>
         {data?.reviews?.map((review) => (
           <div key={review.id} className='review-card'>
             {/* Show with stars - do it later */}
